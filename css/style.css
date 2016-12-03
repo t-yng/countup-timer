@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  background-color: black;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.timer-number,
+.timer-semicolon {
+  color: white;
+  font-size: 15vw;
+}
+
+.timer-button-container {
+  width: 50vw;
+  display: flex;
+  justify-content: space-around;
+}
+
+.timer-button {
+  font-size: 50px;
+}
