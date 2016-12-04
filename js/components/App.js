@@ -3,7 +3,6 @@ import {Timer} from './timer.js'
 import {TimerButton} from './timer-button.js'
 
 export class App extends React.Component {
-
   render () {
     return (
       <div className='center-container' style={{marginTop: '100px'}}>
