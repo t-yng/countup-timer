@@ -7,7 +7,6 @@ import * as timerModel from './timer-model.js'
  * @return actionに応じて変化させた新しい状態
  */
 export function timer (state = timerModel.initialState(), action) {
-  console.log(state)
   switch (action.type) {
     case 'START_TIMER':
       return timerModel.start(state, action.intervalID)

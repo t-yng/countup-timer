@@ -23260,7 +23260,7 @@
 	 * reactで受け取るユーザーアクションとreduxのアクションを連携させる
 	 * @param dispatch reduxのreducerにアクションを渡す関数
 	 */
-	function mapDispatchToProps(dispatch) {
+	function mapDispatchToProps(dispatch, props) {
 	  return {
 	    startTimer: function startTimer() {
 	      var intervalID = setInterval(function () {
@@ -23277,8 +23277,18 @@
 	  };
 	}
 
+	function mergeProps(stateProps, dispatchProps, ownProps) {
+	  console.log(stateProps, dispatchProps, ownProps);
+	  return Object.assign(stateProps, dispatchProps, ownProps, {
+	    // タイマーが止まっていたら、カウントアップを開始する
+	    startTimer: function startTimer() {
+	      if (!stateProps.started) dispatchProps.startTimer();
+	    }
+	  });
+	}
+
 	// 上記で定義した関数を使って、ReduxとReactのコンポーネントを繋げる
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_app.App);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps, mergeProps)(_app.App);
 
 /***/ },
 /* 209 */
@@ -23515,7 +23525,6 @@
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : timerModel.initialState();
 	  var action = arguments[1];
 
-	  console.log(state);
 	  switch (action.type) {
 	    case 'START_TIMER':
 	      return timerModel.start(state, action.intervalID);
@@ -23556,6 +23565,7 @@
 	    minutes: state.minutes,
 	    seconds: state.seconds,
 	    time: state.time,
+	    started: true,
 	    intervalID: intervalID
 	  };
 	}
@@ -23573,6 +23583,7 @@
 	    minutes: state.minutes,
 	    seconds: state.seconds,
 	    time: state.time,
+	    started: false,
 	    intervalID: -1
 	  };
 	}
@@ -23607,6 +23618,7 @@
 	    minutes: '00',
 	    seconds: '00',
 	    time: 0,
+	    started: state.started,
 	    intervalID: state.intervalID
 	  };
 	}
@@ -23620,6 +23632,7 @@
 	    minutes: '00',
 	    seconds: '00',
 	    time: 0,
+	    started: false,
 	    intervalID: -1
 	  };
 	}

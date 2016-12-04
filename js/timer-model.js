@@ -10,6 +10,7 @@ export function start (state, intervalID) {
     minutes: state.minutes,
     seconds: state.seconds,
     time: state.time,
+    started: true,
     intervalID: intervalID
   }
 }
@@ -27,6 +28,7 @@ export function stop (state) {
     minutes: state.minutes,
     seconds: state.seconds,
     time: state.time,
+    started: false,
     intervalID: -1
   }
 }
@@ -61,6 +63,7 @@ export function reset (state) {
     minutes: '00',
     seconds: '00',
     time: 0,
+    started: state.started,
     intervalID: state.intervalID
   }
 }
@@ -74,6 +77,7 @@ export function initialState () {
     minutes: '00',
     seconds: '00',
     time: 0,
+    started: false,
     intervalID: -1
   }
 }
