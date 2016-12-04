@@ -21,10 +21,10 @@ function mapDispatchToProps (dispatch) {
 
   return {
     startTimer: () => {
-      timerID = setInterval(() => dispatch(action.updateTimer()), 1000)
+      timerID = setInterval(() => dispatch(action.updateTimerAction()), 1000)
     },
     stopTimer: () => clearInterval(timerID),
-    resetTimer: () => dispatch(action.resetTimer())
+    resetTimer: () => dispatch(action.resetTimerAction())
   }
 }
 

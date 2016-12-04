@@ -23373,14 +23373,14 @@
 	  return {
 	    startTimer: function startTimer() {
 	      timerID = setInterval(function () {
-	        return dispatch(action.updateTimer());
+	        return dispatch(action.updateTimerAction());
 	      }, 1000);
 	    },
 	    stopTimer: function stopTimer() {
 	      return clearInterval(timerID);
 	    },
 	    resetTimer: function resetTimer() {
-	      return dispatch(action.resetTimer());
+	      return dispatch(action.resetTimerAction());
 	    }
 	  };
 	}
@@ -23576,13 +23576,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.updateTimer = updateTimer;
-	exports.resetTimer = resetTimer;
-	function updateTimer() {
+	exports.updateTimerAction = updateTimerAction;
+	exports.resetTimerAction = resetTimerAction;
+	function updateTimerAction() {
 	  return { type: 'UPDATE_TIMER' };
 	}
 
-	function resetTimer() {
+	function resetTimerAction() {
 	  return { type: 'RESET_TIMER' };
 	}
 
