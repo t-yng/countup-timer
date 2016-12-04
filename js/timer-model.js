@@ -52,11 +52,17 @@ export function update (state) {
 }
 
 /**
- * タイマーの状態を初期状態に戻す
+ * タイマーの時間をリセットする
  * @return タイマーの初期状態
  */
-export function reset () {
-  return initialState()
+export function reset (state) {
+  return {
+    hours: '00',
+    minutes: '00',
+    seconds: '00',
+    time: 0,
+    intervalID: state.intervalID
+  }
 }
 
 /**

@@ -23524,7 +23524,7 @@
 	    case 'UPDATE_TIMER':
 	      return timerModel.update(state);
 	    case 'RESET_TIMER':
-	      return timerModel.reset();
+	      return timerModel.reset(state);
 	    default:
 	      return state;
 	  }
@@ -23598,11 +23598,17 @@
 	}
 
 	/**
-	 * タイマーの状態を初期状態に戻す
+	 * タイマーの時間をリセットする
 	 * @return タイマーの初期状態
 	 */
-	function reset() {
-	  return initialState();
+	function reset(state) {
+	  return {
+	    hours: '00',
+	    minutes: '00',
+	    seconds: '00',
+	    time: 0,
+	    intervalID: state.intervalID
+	  };
 	}
 
 	/**

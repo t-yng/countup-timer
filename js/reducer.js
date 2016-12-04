@@ -16,7 +16,7 @@ export function timer (state = timerModel.initialState(), action) {
     case 'UPDATE_TIMER':
       return timerModel.update(state)
     case 'RESET_TIMER':
-      return timerModel.reset()
+      return timerModel.reset(state)
     default:
       return state
   }
