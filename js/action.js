@@ -1,3 +1,11 @@
+export function startTimerAction (intervalID) {
+  return {type: 'START_TIMER', intervalID: intervalID}
+}
+
+export function stopTimerAction () {
+  return {type: 'STOP_TIMER'}
+}
+
 export function updateTimerAction () {
   return {type: 'UPDATE_TIMER'}
 }

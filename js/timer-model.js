@@ -1,7 +1,40 @@
 /**
+ * タイマーの状態を開始状態に変更する
+ * @param state タイマーの状態
+ * @param {number} intervalID setInterval()で得られたID
+ * @return タイマーの開始状態
+ */
+export function start (state, intervalID) {
+  return {
+    hours: state.hours,
+    minutes: state.minutes,
+    seconds: state.seconds,
+    time: state.time,
+    intervalID: intervalID
+  }
+}
+
+/**
+ * タイマーの状態を停止状態に変更する
+ * @param state タイマーの状態
+ * @return タイマーの停止状態
+ */
+export function stop (state) {
+  clearInterval(state.intervalID)
+
+  return {
+    hours: state.hours,
+    minutes: state.minutes,
+    seconds: state.seconds,
+    time: state.time,
+    intervalID: -1
+  }
+}
+
+/**
  * タイマーの時間を1秒進める
  * @param state タイマーの時間の状態
- * @return 1秒時間を進めた新しい状態
+ * @return 時間を1秒進めた新しい状態
  */
 export function update (state) {
   const time = state.time + 1
@@ -13,12 +46,13 @@ export function update (state) {
     hours: toText(hours),
     minutes: toText(minutes),
     seconds: toText(seconds),
-    time: time
+    time: time,
+    intervalID: state.intervalID
   }
 }
 
 /**
- * タイマーの初期状態を返す
+ * タイマーの状態を初期状態に戻す
  * @return タイマーの初期状態
  */
 export function reset () {
@@ -33,7 +67,8 @@ export function initialState () {
     hours: '00',
     minutes: '00',
     seconds: '00',
-    time: 0
+    time: 0,
+    intervalID: -1
   }
 }
 

@@ -17,13 +17,12 @@ function mapStateToProps (state) {
  * @param dispatch reduxのreducerにアクションを渡す関数
  */
 function mapDispatchToProps (dispatch) {
-  let timerID
-
   return {
     startTimer: () => {
-      timerID = setInterval(() => dispatch(action.updateTimerAction()), 1000)
+      const intervalID = setInterval(() => dispatch(action.updateTimerAction()), 1000)
+      dispatch(action.startTimerAction(intervalID))
     },
-    stopTimer: () => clearInterval(timerID),
+    stopTimer: () => dispatch(action.stopTimerAction()),
     resetTimer: () => dispatch(action.resetTimerAction())
   }
 }

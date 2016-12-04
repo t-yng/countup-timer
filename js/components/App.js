@@ -6,7 +6,7 @@ export class App extends React.Component {
 
   render () {
     return (
-      <div className='center-container' style={{'margin-top': '100px'}}>
+      <div className='center-container' style={{marginTop: '100px'}}>
         <Timer hours={this.props.hours} minutes={this.props.minutes} seconds={this.props.seconds} ref='timer' />
         <div className='timer-button-container'>
           <TimerButton text={'START'} handleClick={this.props.startTimer} />
