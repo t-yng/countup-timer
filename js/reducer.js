@@ -1,6 +1,4 @@
-import {TimerModel} from './timer-model.js'
-
-const timerModel = new TimerModel()
+import * as timerModel from './timer-model.js'
 
 /**
  * Reduxのreducer タイマーの時間の状態遷移を処理する
@@ -8,7 +6,7 @@ const timerModel = new TimerModel()
  * @param action ユーザーアクション
  * @return actionに応じて変化させた新しい状態
  */
-export function timer (state = TimerModel.INITIAL_STATE(), action) {
+export function timer (state = timerModel.initialState(), action) {
   switch (action.type) {
     case 'UPDATE_TIMER':
       return timerModel.update(state)

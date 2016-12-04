@@ -22524,77 +22524,63 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.update = update;
+	exports.reset = reset;
+	exports.initialState = initialState;
+	/**
+	 * タイマーの時間を1秒進める
+	 * @param state タイマーの時間の状態
+	 * @return 1秒時間を進めた新しい状態
+	 */
+	function update(state) {
+	  var time = state.time + 1;
+	  var hours = toHours(time);
+	  var minutes = toMinutes(time);
+	  var seconds = toSeconds(time);
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	  return {
+	    hours: toText(hours),
+	    minutes: toText(minutes),
+	    seconds: toText(seconds),
+	    time: time
+	  };
+	}
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	/**
+	 * タイマーの初期状態を返す
+	 * @return タイマーの初期状態
+	 */
+	function reset() {
+	  return initialState();
+	}
 
-	var TimerModel = exports.TimerModel = function () {
-	  function TimerModel() {
-	    _classCallCheck(this, TimerModel);
-	  }
+	/**
+	 * タイマーの初期状態
+	 */
+	function initialState() {
+	  return {
+	    hours: '00',
+	    minutes: '00',
+	    seconds: '00',
+	    time: 0
+	  };
+	}
 
-	  _createClass(TimerModel, [{
-	    key: 'reset',
-	    value: function reset() {
-	      return TimerModel.INITIAL_STATE();
-	    }
+	function toHours(time) {
+	  return parseInt(time / 60 / 60);
+	}
 
-	    /**
-	     * タイマーの時間を1秒進める
-	     * @param state タイマーの時間の状態
-	     * @return 1秒時間を進めた新しい状態
-	     */
+	function toMinutes(time) {
+	  return parseInt(time / 60 % 60);
+	}
 
-	  }, {
-	    key: 'update',
-	    value: function update(state) {
-	      var time = state.time + 1;
-	      var hours = this.toHours(time);
-	      var minutes = this.toMinutes(time);
-	      var seconds = this.toSeconds(time);
+	function toSeconds(time) {
+	  return time % 60;
+	}
 
-	      return {
-	        hours: this.toText(hours),
-	        minutes: this.toText(minutes),
-	        seconds: this.toText(seconds),
-	        time: time
-	      };
-	    }
-	  }, {
-	    key: 'toHours',
-	    value: function toHours(time) {
-	      return parseInt(time / 60 / 60);
-	    }
-	  }, {
-	    key: 'toMinutes',
-	    value: function toMinutes(time) {
-	      return parseInt(time / 60 % 60);
-	    }
-	  }, {
-	    key: 'toSeconds',
-	    value: function toSeconds(time) {
-	      return time % 60;
-	    }
-	  }, {
-	    key: 'toText',
-	    value: function toText(time) {
-	      return ('00' + time).slice(-2);
-	    }
-	  }], [{
-	    key: 'INITIAL_STATE',
-	    value: function INITIAL_STATE() {
-	      return {
-	        hours: '00',
-	        minutes: '00',
-	        seconds: '00',
-	        time: 0
-	      };
-	    }
-	  }]);
-
-	  return TimerModel;
-	}();
+	function toText(time) {
+	  return ('00' + time).slice(-2);
+	}
 
 /***/ },
 /* 203 */
@@ -22609,7 +22595,9 @@
 
 	var _timerModel = __webpack_require__(202);
 
-	var timerModel = new _timerModel.TimerModel();
+	var timerModel = _interopRequireWildcard(_timerModel);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	/**
 	 * Reduxのreducer タイマーの時間の状態遷移を処理する
@@ -22618,7 +22606,7 @@
 	 * @return actionに応じて変化させた新しい状態
 	 */
 	function timer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _timerModel.TimerModel.INITIAL_STATE();
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : timerModel.initialState();
 	  var action = arguments[1];
 
 	  switch (action.type) {
