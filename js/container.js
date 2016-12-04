@@ -28,7 +28,6 @@ function mapDispatchToProps (dispatch, props) {
 }
 
 function mergeProps (stateProps, dispatchProps, ownProps) {
-  console.log(stateProps, dispatchProps, ownProps)
   return Object.assign(stateProps, dispatchProps, ownProps, {
     // タイマーが止まっていたら、カウントアップを開始する
     startTimer: () => {

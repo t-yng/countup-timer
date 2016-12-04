@@ -23278,7 +23278,6 @@
 	}
 
 	function mergeProps(stateProps, dispatchProps, ownProps) {
-	  console.log(stateProps, dispatchProps, ownProps);
 	  return Object.assign(stateProps, dispatchProps, ownProps, {
 	    // タイマーが止まっていたら、カウントアップを開始する
 	    startTimer: function startTimer() {
@@ -23560,14 +23559,10 @@
 	 * @return タイマーの開始状態
 	 */
 	function start(state, intervalID) {
-	  return {
-	    hours: state.hours,
-	    minutes: state.minutes,
-	    seconds: state.seconds,
-	    time: state.time,
+	  return Object.assign({}, state, {
 	    started: true,
 	    intervalID: intervalID
-	  };
+	  });
 	}
 
 	/**
@@ -23578,14 +23573,10 @@
 	function stop(state) {
 	  clearInterval(state.intervalID);
 
-	  return {
-	    hours: state.hours,
-	    minutes: state.minutes,
-	    seconds: state.seconds,
-	    time: state.time,
+	  return Object.assign({}, state, {
 	    started: false,
 	    intervalID: -1
-	  };
+	  });
 	}
 
 	/**
@@ -23599,13 +23590,12 @@
 	  var minutes = toMinutes(time);
 	  var seconds = toSeconds(time);
 
-	  return {
+	  return Object.assign({}, state, {
 	    hours: toText(hours),
 	    minutes: toText(minutes),
 	    seconds: toText(seconds),
-	    time: time,
-	    intervalID: state.intervalID
-	  };
+	    time: time
+	  });
 	}
 
 	/**
@@ -23613,14 +23603,10 @@
 	 * @return タイマーの初期状態
 	 */
 	function reset(state) {
-	  return {
-	    hours: '00',
-	    minutes: '00',
-	    seconds: '00',
-	    time: 0,
+	  return Object.assign({}, initialState(), {
 	    started: state.started,
 	    intervalID: state.intervalID
-	  };
+	  });
 	}
 
 	/**
